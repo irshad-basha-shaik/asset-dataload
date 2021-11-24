@@ -1,7 +1,11 @@
 import openpyxl
 from pathlib import Path
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 import requests
+
+@csrf_exempt
+
 def getValue(sheet):
     x = sheet
     return x
@@ -64,12 +68,9 @@ def readAssetSheet(sheet):
         bh = getValue(sheet['Q' + str(i)].value)
         bi = getValue(sheet['S' + str(i)].value)
 
-
-        #params = "&Operating_System_Version={0}&ms_office={1}&Antivirus={2}&Adobe_acrobate={3}&Access={4}&Remarks={5}".format(aj,ak,al,am,an,ao)
-
         params="&serial_no={0}&user_email=&asset_no={1}&usage_type={2}&gef_id_number={3}&machine_make={4}&machine_serial_no={5}&hdd_make={6}&hdd_serial_no={7}&processor={8}&warranty_start_date_month={9}&warranty_start_date_day={10}&warranty_start_date_year={11}&amc_start_date_month={12}&amc_start_date_day={13}&amc_start_date_year={14}&user_acceptance_date_month=&user_acceptance_date_day=&user_acceptance_date_year=&OS={15}&ms_office_version={16}&OEM_Volume={17}&AutoCAD={18}&Visio={19}&SAP={20}&Status={21}&user_name={22}&location={23}&emp_id={24}&machine_type={25}&domain_workgroup={26}&machine_model_no={27}&hdd={28}&hdd_model={29}&ram={30}&processor_purchase_date_month={31}&processor_purchase_date_day={32}&processor_purchase_date_year={33}&warranty_end_date_month={34}&warranty_end_date_day={35}&warranty_end_date_year={36}&amc_end_date_month={37}&amc_end_date_day={38}&amc_end_date_year={39}&user_handed_over_date_month=&user_handed_over_date_day=&user_handed_over_date_year=&Operating_System_Version={40}&ms_office={41}&Antivirus={42}&Adobe_acrobate={43}&Access={44}&Remarks={45}".format(ba,bb,bc,bd,be,bf,bg,bh,bi,k[0],k[1],k[2],n[0],n[1],n[2],b,c,d,e,f,g,h,j,a,q,r,p,s,t,u,v,m[0],m[1],m[2],l[1],l[0],l[2],o[1],o[0],o[2],aj,ak,al,am,an,ao)
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        #r = requests.post('http://localhost:8000/assetapp/assets_edit', data=params, headers=headers)
+        r = requests.post( 'http://localhost:8000/assetapp/assets_entry', data=params, headers=headers)
         print(params)
 
 def print_hi(name):
