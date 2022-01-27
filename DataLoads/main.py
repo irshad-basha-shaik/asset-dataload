@@ -75,7 +75,7 @@ def getdate_month_year(sheet):
         a = 12
         b = 12
         c = 1980
-    return b,a,c
+    return a,b,c
 def getMSOFficeVersion(obj):
     VER=[
         ('Libre Office', ''),
@@ -119,6 +119,47 @@ def updateMSOFFICE(obj):
 
     for x in mso:
         if x[0] == obj:
+            return x[1]
+    return obj;
+
+def updateLocation(obj):
+    LOCATION = [
+        ('HYDERABAD', 'HYDERABAD'),
+        ('KRISHNAPATNAM', 'KRISHNAPATNAM'),
+        ('KAKINADA', 'KAKINADA'),
+        ('KAKINADA-3', 'KAKINADA-3'),
+        ('MARKETING', 'MARKETING'),
+        ('DEPOT', 'DEPOT'),
+        ('Depot', 'DEPOT')
+
+    ]
+    for x in LOCATION:
+        if x[0]==obj:
+            return x[1]
+    return obj;
+
+def updateDW(obj):
+    DOMAIN_WORKGROUP = (
+        ('Domain', 'Domain'),
+        ('Domian', 'Domain'),
+        ('workgroup', 'Workgroup'),
+        ('', ''),
+        ('Workgroup', 'Workgroup')
+    )
+    for x in DOMAIN_WORKGROUP:
+        if x[0]==obj:
+            return x[1]
+    return obj;
+
+def updateRemark(obj):
+    REMARKS = (
+        ('Spare', 'Spare'),
+        ('Used', 'Used'),
+        ('used', 'Used'),
+        ('Not Working', 'Not Working')
+    )
+    for x in REMARKS:
+        if x[0]==obj:
             return x[1]
     return obj;
 def updateOS(obj):
@@ -288,7 +329,7 @@ def getOSVersion(obj):
 def readAssetSheet(sheet):
     count=0
     for i in range(4,sheet.max_row):
-        a = getValue(sheet['C' + str(i)].value) # location
+        a = updateLocation(getValue(sheet['C' + str(i)].value)) # location
         b = updateOS(getValue(sheet['Z' + str(i)].value))
         c = updateMSOFFICE(getValue(sheet['AA' + str(i)].value))
         d = isOEM(getValue(sheet['AC' + str(i)].value))
@@ -299,7 +340,7 @@ def readAssetSheet(sheet):
         j = getValue(sheet['F' + str(i)].value)
         q = getValue(sheet['E' + str(i)].value)
         r = getValue(sheet['H' + str(i)].value)
-        p = getValue(sheet['J' + str(i)].value)
+        p = updateDW(getValue(sheet['J' + str(i)].value))
         s = getValue(sheet['L' + str(i)].value)
         t = getHDD(getValue(sheet['N' + str(i)].value))
         u = getValue(sheet['P' + str(i)].value)
@@ -309,7 +350,7 @@ def readAssetSheet(sheet):
         al = getValue(sheet['AD' + str(i)].value)
         am = getValue(sheet['AF' + str(i)].value)
         an = getValue(sheet['AH' + str(i)].value)
-        ao = getValue(sheet['AK' + str(i)].value)
+        ao = updateRemark(getValue(sheet['AK' + str(i)].value))
         ba = getValue(getSerialValue(sheet['B' + str(i)].value))
         bb = getValue(sheet['D' + str(i)].value)
         bc = getValue(sheet['G' + str(i)].value)
