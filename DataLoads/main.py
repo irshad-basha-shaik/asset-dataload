@@ -41,18 +41,19 @@ def getHDD(obj):
         ('512 GB SSD', '512 GB SSD'),
         ('512 GB', '512 GB'),
         ('1 TB+256 SSD', '1 TB+256 SSD'),
-        ('256 SSD+1 TB', '256 SSD+1 TB'),
+        ('256 SSD+1 TB', '1 TB+256 SSD'),
         ('1 TB SSD', '1 TB SSD'),
         ('1 TB  SSD', '1 TB SSD'),
         ('240 GB', '240 GB'),
-        ('1 TB 256 SSD', '1 TB 256 SSD'),
+        ('1 TB 256 SSD', '1 TB+256 SSD'),
         ('250 GB', '250 GB'),
-        ('1 TB /256 GB SSD', '1 TB /256 GB SSD'),
+        ('1 TB /256 GB SSD', '1 TB+256 SSD'),
         ('350 GB', '350 GB'),
         ('2TB+4TB', '2TB+4TB'),
-        ('1TB+256GB', '1TB+256GB'),
-        ('1 TB  SSD', '1 TB  SSD'),
-        ('256 SSD 1 TB', '256 SSD 1 TB'),
+        ('1TB+256GB', '1 TB+256 SSD'),
+        ('1 TB  SSD', '1 TB+256 SSD'),
+        ('256 SSD 1 TB', '1 TB+256 SSD'),
+        ('1 TB /256 GB SSD', '1 TB+256 SSD'),
 
     ]
     for x in HDD:
@@ -106,6 +107,7 @@ def updateMSOFFICE(obj):
     ('MS Office Standard 2010', 'MS Office Standard 2010'),
     ('Ms Office Standard 2010', 'MS Office Standard 2010'),
     ('MS Office Standard 2013', 'MS Office Standard 2013'),
+    ('ms Office Standard 2013', 'MS Office Standard 2013'),
     ('MS Office Standard 2016', 'MS Office Standard 2016'),
     ('ms Office Standard 2016', 'MS Office Standard 2016'),
     ('Ms Office Standard 2016', 'MS Office Standard 2016'),
@@ -154,6 +156,7 @@ def updateDW(obj):
 def updateRemark(obj):
     REMARKS = (
         ('Spare', 'Spare'),
+        ('spare', 'Spare'),
         ('Used', 'Used'),
         ('used', 'Used'),
         ('Not Working', 'Not Working')
@@ -162,18 +165,70 @@ def updateRemark(obj):
         if x[0]==obj:
             return x[1]
     return obj;
+def updateRam(obj):
+    RAM = (
+        ('', ''),
+        ('2 GB', '2 GB'),
+        ('2GB', '2 GB'),
+        ('3 GB', '3 GB'),
+        ('3GB', '3 GB'),
+        ('4 GB', '4 GB'),
+        ('4GB', '4 GB'),
+        ('6 GB', '6 GB'),
+        ('6GB', '6 GB'),
+        ('8 GB', '8 GB'),
+        ('8GB', '8 GB'),
+        ('10 GB', '10 GB'),
+        ('10GB', '10 GB'),
+        ('12 GB', '12 GB'),
+        ('12GB', '12 GB'),
+        ('14 GB', '14 GB'),
+        ('14GB', '14 GB'),
+        ('16 GB', '16 GB'),
+        ('16GB', '16 GB'),
+        ('18 GB', '18 GB'),
+        ('18GB', '18 GB'),
+        ('20 GB', '20 GB'),
+        ('20GB', '20 GB'),
+        ('22 GB', '22 GB'),
+        ('22GB', '22 GB'),
+        ('24 GB', '24 GB'),
+        ('24GB', '24 GB'),
+        ('26 GB', '26 GB'),
+        ('26GB', '26 GB'),
+        ('28 GB', '28 GB'),
+        ('28GB', '28 GB'),
+        ('30 GB', '30 GB'),
+        ('30GB', '30 GB'),
+        ('32 GB', '32 GB'),
+        ('32GB', '32 GB'),
+        ('34 GB', '34 GB'),
+        ('34GB', '34 GB'),
+        ('36 GB', '36 GB'),
+        ('36GB', '36 GB'),
+        ('38 GB', '38 GB'),
+        ('38GB', '38 GB'),
+        ('40 GB', '40 GB'),
+        ('40GB', '40 GB'),
+
+    )
+    for x in RAM:
+        if x[0]==obj:
+            return x[1]
+    return obj;
 def updateOS(obj):
     OS = (
         ('', ''),
         ('Win.7', 'Win.7'),
         ('Win.10', 'Win.10'),
-        ('Ser.2012', 'Ser.2012'),
+        ('Ser.2012', 'Win-Server'),
+        ('Win-Server-2012 Std', 'Win-Server'),
         ('Blank', ''),
         ('Win.8', 'Win.8'),
         ('Win 8', 'Win.8'),
         ('Win.XP', 'Win.XP'),
         ('Win-7', 'Win.7'),
-        ('Ser.2016', 'Ser.2016'),
+        ('Ser.2016', 'Win-Server'),
     )
     for x in OS:
         if x[0]==obj:
@@ -298,7 +353,8 @@ def getProcessor(obj):
         ('InteL- 3.10 Ghz', 'InteL- 3.10 Ghz'),
         ('InteL- 3.50 Ghz', 'InteL- 3.50 Ghz'),
         ('Intel®Xeon 3.50GHZ', 'Intel®Xeon 3.50GHZ'),
-        ('P Dualcore-3 GHZ', 'P Dualcore-3 GHZ')
+        ('P Dualcore-3 GHZ', 'P Dualcore-3 GHZ'),
+        ('Core i-3, 3.00 GHz', 'Corei3-3.10 GHZ')
     ]
     for x in PROCESSOR:
         if x[0]==obj:
@@ -319,7 +375,11 @@ def getOSVersion(obj):
     ('Win-8.1 Pro.32 Bit', 'Win-8.1 Pro.32 Bit'),
     ('Win-8.1pro 64 Bit', 'Win-8.1pro 64 Bit'),
     ('Win-Server-2012', 'Win-Server-2012'),
-    ('Win-Server-2016 Std', 'Win-Server-2016 Std')
+    ('Win-Server-2016', 'Win-Server-2016'),
+    ('Win-Server-2019', 'Win-Server-2019'),
+    ('Win-Server-2012 Std', 'Win-Server-2012'),
+    ('Win-Server-2016 Std', 'Win-Server-2016'),
+    ('Win-Server-2019 Std', 'Win-Server-2019')
             ]
     for x in PROCESSOR_VERSION:
         if x[0]==obj:
@@ -344,7 +404,7 @@ def readAssetSheet(sheet):
         s = getValue(sheet['L' + str(i)].value)
         t = getHDD(getValue(sheet['N' + str(i)].value))
         u = getValue(sheet['P' + str(i)].value)
-        v = getValue(sheet['R' + str(i)].value)
+        v = updateRam(getValue(sheet['R' + str(i)].value)) #ram
         aj = getOSVersion(getValue(sheet['Y' + str(i)].value))
         ak = getValue(sheet['AB' + str(i)].value)
         al = getValue(sheet['AD' + str(i)].value)
@@ -393,9 +453,9 @@ def checkit():
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     file_path="/home/abed/Downloads"
-    xlsx_file = Path(file_path, 'GEF_IT_Asset_Report_of_all_location15-06-21.xlsx')
+    xlsx_file = Path(file_path, 'Basha.xlsx')
     wb_obj = openpyxl.load_workbook(xlsx_file)
-    asset_sheet=wb_obj["IT Asset's"]
+    asset_sheet=wb_obj["Sheet1"]
     readAssetSheet(asset_sheet)
     #checkit()
 
