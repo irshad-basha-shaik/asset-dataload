@@ -2,6 +2,7 @@ import openpyxl
 from pathlib import Path
 import datetime
 import requests
+from datetime import date
 serial ={
     "=B4" :1,
     "=B4+1" :2
@@ -60,8 +61,7 @@ def getHDD(obj):
         if x[0]==obj:
             return x[1]
     return obj
-def getdate_month_year(sheet):
-    #print(type(sheet))
+def getdate_month_year1(sheet):
     a = 12
     b = 12
     c = 1980
@@ -71,12 +71,29 @@ def getdate_month_year(sheet):
             a = x[0]
             b = x[1]
             c = x[2]
-            x = datetime.datetime(a, b, c)
     except:
-        a = 12
-        b = 12
-        c = 1980
-    return a,b,c
+        d=10
+    a, b, c = int(a), int(b), int(c)
+    # return b,a,c
+    return str(date(c, b, a))
+    # return c,a,b
+def getdate_month_year(sheet):
+    c = 12
+    b = 12
+    a = 1980
+    try:
+        if sheet!=None :
+            sheet = datetime.datetime.date(sheet)
+            x = str(sheet).split("-")
+            a = x[0]
+            b = x[1]
+            c = x[2]
+    except:
+        d=10
+    a, b, c = int(a), int(b), int(c)
+    #return b,a,c
+    return str(date(a,b,c))
+    #return c,a,b
 def getMSOFficeVersion(obj):
     VER=[
         ('Libre Office', ''),
@@ -363,7 +380,7 @@ def getProcessor(obj):
 
 def getOSVersion(obj):
     PROCESSOR_VERSION= [
-        ('Win- 8.1 Pro 64 Bit', 'Win- 8.1 Pro 64 Bit'),
+    ('Win- 8.1 Pro 64 Bit', 'Win- 8.1 Pro 64 Bit'),
     ('Win-10 Home Single Lan.', 'Win-10 Home Single Lan.'),
     ('Win-10 Pro 64 Bit', 'Win-10 Pro 64 Bit'),
     ('Win-10 Pro 64 bit', 'Win-10 Pro 64 bit'),
@@ -423,16 +440,17 @@ def readAssetSheet(sheet):
         bi = getProcessor(getValue(sheet['S' + str(i)].value))
         k = getdate_month_year(sheet['U' + str(i)].value)  # warranty_start_date
         l = getdate_month_year(sheet['V' + str(i)].value)  # warranty_end_date
-        m = getdate_month_year(sheet['T' + str(i)].value)  # Purchase Date
+        m = getdate_month_year1(sheet['T' + str(i)].value)  # Purchase Date
         n = getdate_month_year(sheet['W' + str(i)].value)  # AMC Start Date
         o = getdate_month_year(sheet['X' + str(i)].value)  # AMC end Date
         bj = getdate_month_year(sheet['W' + str(i)].value)  # user_acceptance_date
         bk = getdate_month_year(sheet['X' + str(i)].value)  # user_handed_over_date
+        #params = "&warranty_start_date ={0}&amc_start_date ={1}&user_acceptance_date={2}&processor_purchase_date={3}&warranty_end_date={4}&amc_end_date={5}&user_handed_over_date={6}".format(k, n, bj, m, l, o, bk)
         #slno = [500077,500260,500976,500905,500079,500075,501646,501645,501647,502056,502057,502225,500284,500910,501196,501048,500998,500281,501046,500283,500902,500006,500878,500303,501015,500876,500007,501022,500355,500966,500325,500994,500326,500338,500329,500356,500901,500965,500963,500999,500964,500975,500993,500900,501057,501058,501059,501061,501069,501142,500063,500066,501047,501673,501674,501181,500331,501537,501538,501578,501049,501624,501627,501625,501625,501708,501707,501790,501791,501926,501927,501925,501942,900861,501943,501945]
-        params = "&serial_no={0}&user_email=&asset_no={1}&usage_type={2}&gef_id_number={3}&machine_make={4}&machine_serial_no={5}&hdd_make={6}&hdd_serial_no={7}&processor={8}&warranty_start_date_month={9}&warranty_start_date_day={10}&warranty_start_date_year={11}&amc_start_date_month={12}&amc_start_date_day={13}&amc_start_date_year={14}&user_acceptance_date_month=12&user_acceptance_date_day=12&user_acceptance_date_year=1980&OS={15}&ms_office_version={16}{17}&AutoCAD={18}&Visio={19}&SAP={20}&Status={21}&user_name={22}&location={23}&emp_id={24}&machine_type={25}&domain_workgroup={26}&machine_model_no={27}&hdd={28}&hdd_model={29}&ram={30}&processor_purchase_date_month={31}&processor_purchase_date_day={32}&processor_purchase_date_year={33}&warranty_end_date_month={34}&warranty_end_date_day={35}&warranty_end_date_year={36}&amc_end_date_month={37}&amc_end_date_day={38}&amc_end_date_year={39}&user_handed_over_date_month=12&user_handed_over_date_day=12&user_handed_over_date_year=1980&Operating_System_Version={40}&ms_office={41}&Antivirus={42}&Adobe_acrobate={43}&Access={44}&Remarks={45}&Domain_User_Name=NA&SAP_User_ID=NA".format(ba,bb,bc,bd,be,bf,bg,bh,bi,k[0],k[1],k[2],n[0],n[1],n[2],b,c,d,e,f,g,h,j,a,q,r,p,s,t,u,v,m[0],m[1],m[2],l[1],l[0],l[2],o[1],o[0],o[2],aj,ak,al,am,an,ao)
-        #params="&serial_no={0}&user_email=&asset_no={1}&usage_type={2}&gef_id_number={3}&machine_make={4}&machine_serial_no={5}&hdd_make={6}&hdd_serial_no={7}&processor={8}&warranty_start_date_month={9}&warranty_start_date_day={10}&warranty_start_date_year={11}&amc_start_date_month={12}&amc_start_date_day={13}&amc_start_date_year={14}&user_acceptance_date_month=&user_acceptance_date_day=&user_acceptance_date_year=&OS={15}&ms_office_version={16}&OEM_Volume={17}&AutoCAD={18}&Visio={19}&SAP={20}&Status={21}&user_name={22}&location={23}&emp_id={24}&machine_type={25}&domain_workgroup={26}&machine_model_no={27}&hdd={28}&hdd_model={29}&ram={30}&processor_purchase_date_month={31}&processor_purchase_date_day={32}&processor_purchase_date_year={33}&warranty_end_date_month={34}&warranty_end_date_day={35}&warranty_end_date_year={36}&amc_end_date_month={37}&amc_end_date_day={38}&amc_end_date_year={39}&user_handed_over_date_month=&user_handed_over_date_day=&user_handed_over_date_year=&Operating_System_Version={40}&ms_office={41}&Antivirus={42}&Adobe_acrobate={43}&Access={44}&Remarks={45}&Domain_User_Name=&SAP_User_ID=".format(ba,bb,bc,bd,be,bf,bg,bh,bi,k[0],k[1],k[2],n[0],n[1],n[2],b,c,d,e,f,g,h,j,a,q,r,p,s,t,u,v,m[0],m[1],m[2],l[1],l[0],l[2],o[1],o[0],o[2],aj,ak,al,am,an,ao)
+        params = "&serial_no={0}&user_email=&asset_no={1}&usage_type={2}&gef_id_number={3}&machine_make={4}&machine_serial_no={5}&hdd_make={6}&hdd_serial_no={7}&processor={8}&warranty_start_date={9}&amc_start_date={10}&user_acceptance_date={11}&OS={12}&ms_office_version={13}&OEM_Volume={14}&AutoCAD={15}&Visio={16}&SAP={17}&Status={18}&user_name={19}&location={20}&emp_id={21}&machine_type={22}&domain_workgroup={23}&machine_model_no={24}&hdd={25}&hdd_model={26}&ram={27}&processor_purchase_date={28}&warranty_end_date={29}&amc_end_date={30}&user_handed_over_date={31}&Operating_System_Version={32}&ms_office={33}&Antivirus={34}&Adobe_acrobate={35}&Access={36}&Remarks={37}&Domain_User_Name=NA&SAP_User_ID=NA".format(ba,bb,bc,bd,be,bf,bg,bh,bi,k,n,bj,b,c,d,e,f,g,h,j,a,q,r,p,s,t,u,v,m,l,o,bk,aj,ak,al,am,an,ao)
+        #params="&serial_no={0}&user_email=&asset_no={1}&usage_type={2}&gef_id_number={3}&machine_make={4}&machine_serial_no={5}&hdd_make={6}&hdd_serial_no={7}&processor={8}&warranty_start_date={9}&amc_start_date={10}&user_acceptance_date={11}&OS={12}&ms_office_version={13}&OEM_Volume={14}&AutoCAD={15}&Visio={16}&SAP={17}&Status={18}&user_name={19}&location={20}&emp_id={21}&machine_type={22}&domain_workgroup={23}&machine_model_no={24}&hdd={25}&hdd_model={26}&ram={27}&processor_purchase_date={28}&warranty_end_date={29}&amc_end_date={30}&user_handed_over_date={31}&Operating_System_Version={32}&ms_office={33}&Antivirus={34}&Adobe_acrobate={35}&Access={36}&Remarks={37}&Domain_User_Name=&SAP_User_ID=".format(ba,bb,bc,bd,be,bf,bg,bh,bi,k,n,bj,b,c,d,e,f,g,h,j,a,q,r,p,s,t,u,v,m,l,o,bk,aj,ak,al,am,an,ao)
         #params="&user_name={0}&user_email=&location={1}&asset_no={2}&serial_no={3}&emp_id={4}&usage_type={5}&machine_type={6}&gef_id_number={}&domain_workgroup={}&Domain_User_Name={}&machine_make={}&machine_model_no={}&machine_serial_no={}&hdd={}&hdd_make={}&hdd_model={}&hdd_serial_no={}&ram={}&processor={}&processor_purchase_date={}&warranty_start_date={}&warranty_end_date={}&amc_start_date={}&amc_end_date={}&user_acceptance_date={}&user_handed_over_date={}&Operating_System_Version={}&OS={}&OEM_Volume={}&ms_office={}&ms_office_version={}&Antivirus={}&AutoCAD={}&Adobe_acrobate={}&Visio={}&Access={}&SAP={}&SAP_User_ID={}&Status={}&Remarks={}"
-        #params="serial_no={0}".format(ba)
+
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         r = requests.post( 'http://localhost:8000/assets_entry', data=params, headers=headers)
         print(".")
@@ -441,7 +459,6 @@ def readAssetSheet(sheet):
 gc=0
 def isOEM(val):
     val=val.strip()
-
     if val=='OEM':
         return "&OEM_Volume=on"
     return ""
