@@ -409,7 +409,7 @@ def readAssetSheet(sheet):
         a = updateLocation(getValue(sheet['C' + str(i)].value)) # location
         b = updateOS(getValue(sheet['Z' + str(i)].value))
         c = updateMSOFFICE(getValue(sheet['AA' + str(i)].value))
-        d = isOEM(getValue(sheet['AC' + str(i)].value))
+        d = getValue(sheet['AC' + str(i)].value) #OEM_Volume
         e = getValue(sheet['AE' + str(i)].value)
         f = getValue(sheet['AG' + str(i)].value)
         g = getValue(sheet['AI' + str(i)].value)
@@ -463,18 +463,18 @@ def isOEM(val):
         return "&OEM_Volume=on"
     return ""
 def checkit():
-    '''k="serial_no=1&user_email=ibasha%40gmail.comb&asset_no=2&usage_type=Live&gef_id_number=1&machine_make=1&machine_serial_no=1&hdd_make=1&hdd_serial_no=1&processor=Dual_Core&warranty_start_date_month=11&warranty_start_date_day=11&warranty_start_date_year=1940&amc_start_date_month=11&amc_start_date_day=11&amc_start_date_year=1940&user_acceptance_date_month=11&user_acceptance_date_day=11&user_acceptance_date_year=1940&OS=Windows&ms_office_version=Office95&OEM_Volume=on&AutoCAD=on&Visio=on&SAP=on&Status=1&user_name=1&location=Hyderabad&emp_id=yaseen1596&machine_type=Laptop&domain_workgroup=Workgroup&machine_model_no=1&hdd=500MB&hdd_model=1&ram=2GB&processor_purchase_date_month=11&processor_purchase_date_day=11&processor_purchase_date_year=1940&warranty_end_date_month=11&warranty_end_date_day=11&warranty_end_date_year=1940&amc_end_date_month=11&amc_end_date_day=11&amc_end_date_year=1940&user_handed_over_date_month=11&user_handed_over_date_day=11&user_handed_over_date_year=1940&Operating_System_Version=Windows+XP&ms_office=on&Antivirus=on&Adobe_acrobate=on&Access=on&Remarks=Under+Warranty&Domain_User_Name=irshad&SAP_User_ID=sap1234"
+    k="serial_no=1&user_email=ibasha%40gmail.comb&asset_no=2&usage_type=Live&gef_id_number=1&machine_make=1&machine_serial_no=1&hdd_make=1&hdd_serial_no=1&processor=Dual_Core&warranty_start_date_month=11&warranty_start_date_day=11&warranty_start_date_year=1940&amc_start_date_month=11&amc_start_date_day=11&amc_start_date_year=1940&user_acceptance_date_month=11&user_acceptance_date_day=11&user_acceptance_date_year=1940&OS=Windows&ms_office_version=Office95&OEM_Volume=on&AutoCAD=on&Visio=on&SAP=on&Status=1&user_name=1&location=Hyderabad&emp_id=yaseen1596&machine_type=Laptop&domain_workgroup=Workgroup&machine_model_no=1&hdd=500MB&hdd_model=1&ram=2GB&processor_purchase_date_month=11&processor_purchase_date_day=11&processor_purchase_date_year=1940&warranty_end_date_month=11&warranty_end_date_day=11&warranty_end_date_year=1940&amc_end_date_month=11&amc_end_date_day=11&amc_end_date_year=1940&user_handed_over_date_month=11&user_handed_over_date_day=11&user_handed_over_date_year=1940&Operating_System_Version=Windows+XP&ms_office=on&Antivirus=on&Adobe_acrobate=on&Access=on&Remarks=Under+Warranty&Domain_User_Name=irshad&SAP_User_ID=sap1234"
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    r = requests.post( 'http://localhost:8000/assetapp/assets_entry', data=k, headers=headers)'''
+    r = requests.post( 'http://localhost:8000/assetapp/assets_entry', data=k, headers=headers)
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
-    file_path="/home/abed/Downloads"
+    file_path="/home/home/Downloads"
     xlsx_file = Path(file_path, 'Basha.xlsx')
     wb_obj = openpyxl.load_workbook(xlsx_file)
     asset_sheet=wb_obj["Sheet1"]
     readAssetSheet(asset_sheet)
-    #checkit()
+    checkit()
 
 
 
